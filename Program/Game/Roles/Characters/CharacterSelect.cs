@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Game.UI;
 
 namespace Game.Roles.Characters
 {
@@ -10,14 +11,22 @@ namespace Game.Roles.Characters
     {
         private string _choice;
         private string _name;
+
+        private readonly Display _display;
+
+        public CharacterSelect()
+        {
+            _name = "Unknown";
+            _choice = "1";
+            _display = new Display();
+        }
+
         public Character ChooseCharacter()
         {
 
-            Console.WriteLine("Choose your character name:");
-            _name = Console.ReadLine();
+            _name = _display.CharacterSelect_Name();
 
-            Console.WriteLine("Choose your character: \n1: Mage | 2: Warrior |3: Rouge");
-            _choice = Console.ReadLine();
+            _choice = _display.CharacterSelect_Choice();
 
             do
             {
@@ -31,11 +40,9 @@ namespace Game.Roles.Characters
                         return new Rouge(_name);
                 }
 
-                Console.WriteLine("You have chosen an invalid value. Try again!");
-                _choice = Console.ReadLine();
+                _choice = _display.CharacterSelect_Invalid();
 
             } while (true);
         }
-
     }
 }
